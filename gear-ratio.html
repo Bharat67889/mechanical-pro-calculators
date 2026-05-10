@@ -1,0 +1,194 @@
+<style>
+    :root {
+        --gear-primary: #f59e0b;
+        --gear-secondary: #d97706;
+        --bg-slate: #f1f5f9;
+        --text-main: #0f172a;
+    }
+
+    .gear-wrapper {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: var(--bg-slate);
+        padding: 30px 15px;
+        color: var(--text-main);
+    }
+
+    .gear-card {
+        background: #ffffff;
+        max-width: 650px;
+        margin: 0 auto;
+        border-radius: 24px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+    }
+
+    .gear-header {
+        background: linear-gradient(135deg, var(--gear-primary), var(--gear-secondary));
+        padding: 25px;
+        text-align: center;
+        color: white;
+    }
+
+    .gear-header h1 { margin: 0; font-size: 26px; font-weight: 800; }
+
+    .gear-body { padding: 30px; }
+
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .input-box label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #475569;
+    }
+
+    .gear-input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: 0.3s;
+        box-sizing: border-box;
+    }
+
+    .gear-input:focus { border-color: var(--gear-primary); outline: none; background: #fffcf0; }
+
+    .calc-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--gear-secondary);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .calc-btn:hover { background: var(--gear-primary); transform: translateY(-2px); }
+
+    .gear-result {
+        margin-top: 25px;
+        padding: 20px;
+        background: #fffbeb;
+        border-radius: 15px;
+        border: 1px solid #fde68a;
+        display: none;
+        text-align: center;
+    }
+
+    .res-label { font-size: 14px; color: #b45309; text-transform: uppercase; font-weight: bold; }
+    .res-value { font-size: 28px; font-weight: 800; color: #92400e; display: block; margin: 5px 0; }
+
+    .seo-article { max-width: 750px; margin: 40px auto; line-height: 1.8; color: #334155; }
+    .seo-article h2 { color: #1e293b; border-bottom: 3px solid var(--gear-primary); display: inline-block; }
+    .ad-slot { background: #f8fafc; border: 2px dashed #e2e8f0; padding: 20px; text-align: center; margin: 25px 0; border-radius: 12px; color: #94a3b8; }
+</style>
+
+<div class="gear-wrapper">
+    <div class="gear-card">
+        <div class="gear-header">
+            <h1>Gear Ratio Calculator</h1>
+            <p>Mechanical Advantage & Speed Output</p>
+        </div>
+        <div class="gear-body">
+            
+            <div class="ad-slot">Adsterra Banner (728x90)</div>
+
+            <div class="input-row">
+                <div class="input-box">
+                    <label>Driver Gear Teeth (T1)</label>
+                    <input type="number" id="t1" class="gear-input" placeholder="e.g. 20">
+                </div>
+                <div class="input-row">
+                <div class="input-box" style="grid-column: span 2;">
+                    <label>Driven Gear Teeth (T2)</label>
+                    <input type="number" id="t2" class="gear-input" placeholder="e.g. 40">
+                </div>
+                </div>
+            </div>
+
+            <div class="input-box" style="margin-bottom: 20px;">
+                <label>Input Speed (RPM) - Optional</label>
+                <input type="number" id="rpmInput" class="gear-input" placeholder="e.g. 1500">
+            </div>
+
+            <button class="calc-btn" onclick="calculateGear()">Calculate Now</button>
+
+            <div id="gearResult" class="gear-result">
+                <div id="ratioOut">
+                    <span class="res-label">Gear Ratio</span>
+                    <span class="res-value" id="ratioVal">2 : 1</span>
+                </div>
+                <div id="speedOut" style="margin-top:15px; display:none;">
+                    <span class="res-label">Output Speed (RPM)</span>
+                    <span class="res-value" id="speedVal">750</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <article class="seo-article">
+        <h2>Understanding Gear Ratio in Mechanical Systems</h2>
+        <p>Gear ratio is one of the most fundamental concepts in <b>Mechanical Engineering</b> and <b>Automotive Design</b>. It determines how power is transmitted between two rotating gears. Whether you are building a simple toy or a complex industrial gearbox, knowing the ratio between the <b>Driver Gear</b> and the <b>Driven Gear</b> is essential.</p>
+
+        <div class="ad-slot">Adsterra Native Ad</div>
+
+        <h3>The Gear Ratio Formula</h3>
+        <p>The calculation is simple but powerful. The formula used in our calculator is:</p>
+        <p style="background:#eee; padding:10px; border-radius:5px; text-align:center;"><b>Gear Ratio = Number of Teeth on Driven Gear / Number of Teeth on Driver Gear</b></p>
+        
+        <h3>Speed vs. Torque Trade-off</h3>
+        <p>In mechanics, you never get something for nothing. When you use gears to increase <b>Torque</b> (by having a larger driven gear), you automatically decrease the <b>Speed (RPM)</b>. Conversely, to increase speed, you need a smaller driven gear, which results in lower torque. This is known as mechanical advantage.</p>
+
+        <div class="ad-slot">Adsterra Banner (300x250)</div>
+
+        <h3>Why Engineers Use This Calculator?</h3>
+        <ul>
+            <li><b>Automotive:</b> Calculating differential ratios for better acceleration or top speed.</li>
+            <li><b>Robotics:</b> Designing motor-gearbox assemblies to lift specific weights.</li>
+            <li><b>Industrial:</b> Ensuring conveyor belts or pumps run at the correct RPM.</li>
+        </ul>
+        <p>Our professional Gear Ratio tool provides instant results, helping students and engineers save time during the design phase of <b>Theory of Machines</b> projects.</p>
+    </article>
+</div>
+
+<script>
+    function calculateGear() {
+        const t1 = parseFloat(document.getElementById('t1').value);
+        const t2 = parseFloat(document.getElementById('t2').value);
+        const rpm = parseFloat(document.getElementById('rpmInput').value);
+        const resBox = document.getElementById('gearResult');
+        const ratioVal = document.getElementById('ratioVal');
+        const speedVal = document.getElementById('speedVal');
+        const speedOut = document.getElementById('speedOut');
+
+        if (isNaN(t1) || isNaN(t2) || t1 <= 0 || t2 <= 0) {
+            alert("Please enter valid teeth numbers.");
+            return;
+        }
+
+        const ratio = t2 / t1;
+        ratioVal.innerHTML = ratio.toFixed(2) + " : 1";
+
+        if (!isNaN(rpm) && rpm > 0) {
+            const outRPM = rpm / ratio;
+            speedVal.innerHTML = outRPM.toFixed(2) + " RPM";
+            speedOut.style.display = 'block';
+        } else {
+            speedOut.style.display = 'none';
+        }
+
+        resBox.style.display = 'block';
+    }
+</script>
