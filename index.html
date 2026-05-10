@@ -3,87 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mechanical Unit Converter Pro</title>
+    <title>Mechanical Unit Converter Pro - Torque & Pressure</title>
     <style>
-        :root { --primary-color: #2563eb; --secondary-color: #1e40af; --bg-color: #f8fafc; --text-dark: #1e293b; --card-bg: #ffffff; }
-        .tool-wrapper { font-family: 'Inter', sans-serif; background: var(--bg-color); padding: 40px 20px; color: var(--text-dark); min-height: 100vh; }
-        .tool-card { background: var(--card-bg); max-width: 700px; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e2e8f0; }
-        .tool-header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); padding: 30px; text-align: center; color: white; }
-        .tool-nav { text-align: center; margin-bottom: 20px; font-weight: bold; }
-        .tool-nav a { color: white; text-decoration: none; margin: 0 10px; opacity: 0.8; }
-        .tool-nav a.active { opacity: 1; border-bottom: 2px solid white; }
-        .tool-body { padding: 40px; }
-        .input-group { margin-bottom: 25px; }
-        .input-group label { display: block; font-weight: 600; margin-bottom: 10px; font-size: 14px; color: #64748b; text-transform: uppercase; }
-        .tool-input, .tool-select { width: 100%; padding: 15px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 16px; box-sizing: border-box; }
-        .result-section { margin-top: 30px; padding: 25px; background: #eff6ff; border-radius: 15px; text-align: center; display: none; }
-        .result-value { font-size: 32px; font-weight: 800; color: var(--secondary-color); margin-top: 10px; display: block; }
+        :root { --primary: #2563eb; --secondary: #1e40af; --bg: #f8fafc; --text: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: var(--text); }
+        .nav-bar { background: #fff; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-bar a { text-decoration: none; color: var(--primary); font-weight: bold; margin: 0 15px; padding: 5px 10px; border-radius: 5px; }
+        .nav-bar a.active { background: var(--primary); color: white; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .tool-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #64748b; font-size: 14px; }
+        input, select { width: 100%; padding: 15px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 16px; box-sizing: border-box; background: #f8fafc; }
+        .result-box { margin-top: 30px; padding: 25px; background: #eff6ff; border-radius: 15px; text-align: center; display: none; }
+        .result-value { font-size: 32px; font-weight: 800; color: var(--secondary); display: block; margin-top: 5px; }
+        .article { margin-top: 50px; line-height: 1.8; font-size: 17px; }
+        .article h2 { color: #0f172a; border-left: 5px solid var(--primary); padding-left: 15px; }
     </style>
 </head>
 <body>
-    <div class="tool-wrapper">
-        <div class="tool-card">
-            <div class="tool-header">
-                <div class="tool-nav">
-                    <a href="index.html" class="active">Unit Converter</a> | 
-                    <a href="gear-ratio.html">Gear Ratio</a>
-                </div>
-                <h1>Unit Converter Pro</h1>
-                <p>High-Precision Torque & Pressure</p>
+
+<div class="nav-bar">
+    <a href="index.html" class="active">Unit Converter</a>
+    <a href="gear-ratio.html">Gear Ratio Calc</a>
+</div>
+
+<div class="container">
+    <div class="tool-card">
+        <div class="header">
+            <h1>Unit Converter Pro</h1>
+            <p>High-Precision Mechanical Calculations</p>
+        </div>
+
+        <div class="input-group">
+            <label>Value</label>
+            <input type="number" id="valInput" oninput="convert()" placeholder="Enter number...">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="input-group">
+                <label>From</label>
+                <select id="from" onchange="convert()">
+                    <option value="bar">Bar</option>
+                    <option value="psi">PSI</option>
+                    <option value="pascal">Pascal</option>
+                    <option value="nm">Nm (Torque)</option>
+                </select>
             </div>
-            <div class="tool-body">
-                <div class="input-group">
-                    <label>Enter Value</label>
-                    <input type="number" id="mainInput" class="tool-input" oninput="calculate()">
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-group">
-                        <label>From</label>
-                        <select id="fromUnit" class="tool-select" onchange="calculate()">
-                            <option value="bar">Bar</option>
-                            <option value="psi">PSI</option>
-                            <option value="pascal">Pascal</option>
-                            <option value="nm">Nm</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>To</label>
-                        <select id="toUnit" class="tool-select" onchange="calculate()">
-                            <option value="pascal">Pascal</option>
-                            <option value="bar">Bar</option>
-                            <option value="psi">PSI</option>
-                            <option value="nm">Nm</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="resultBox" class="result-section">
-                    <h3>Result</h3>
-                    <span id="resultVal" class="result-value">0.00</span>
-                </div>
+            <div class="input-group">
+                <label>To</label>
+                <select id="to" onchange="convert()">
+                    <option value="pascal">Pascal</option>
+                    <option value="bar">Bar</option>
+                    <option value="psi">PSI</option>
+                    <option value="nm">Nm</option>
+                </select>
             </div>
         </div>
+
+        <div id="resBox" class="result-box">
+            <span style="font-size: 14px; text-transform: uppercase; color: var(--primary);">Converted Value</span>
+            <span id="resVal" class="result-value">0.00</span>
+        </div>
     </div>
-    <script>
-        function calculate() {
-            const val = parseFloat(document.getElementById('mainInput').value);
-            const from = document.getElementById('fromUnit').value;
-            const to = document.getElementById('toUnit').value;
-            const resBox = document.getElementById('resultBox');
-            const resVal = document.getElementById('resultVal');
-            if (isNaN(val)) { resBox.style.display = 'none'; return; }
-            let base = 0;
-            if (from === 'pascal') base = val;
-            else if (from === 'bar') base = val * 100000;
-            else if (from === 'psi') base = val * 6894.757;
-            else if (from === 'nm') base = val;
-            let final = 0;
-            if (to === 'pascal') final = base;
-            else if (to === 'bar') final = base / 100000;
-            else if (to === 'psi') final = base / 6894.757;
-            else if (to === 'nm') final = base;
-            resVal.innerHTML = final.toFixed(4) + " " + to.toUpperCase();
-            resBox.style.display = 'block';
-        }
-    </script>
+
+    <div class="article">
+        <h2>Mechanical Engineering Units: A Detailed Guide</h2>
+        <p>In mechanical engineering, accuracy in unit conversion is paramount. Whether you're a student at a polytechnic or a professional engineer working on fluid mechanics, understanding the relationship between <b>Pressure</b> and <b>Torque</b> is essential. Our tool is designed to provide high-precision results instantly.</p>
+        
+        <h3>Understanding Industrial Pressure Units</h3>
+        <p>Pressure is force per unit area. In SI units, it's measured in <b>Pascals (Pa)</b>. However, because a Pascal is very small, we often use <b>Bar</b> (100,000 Pa). In countries like the USA, <b>PSI (Pounds per Square Inch)</b> is the standard for hydraulics and tire pressure.</p>
+        
+        <h3>Torque and Mechanical Advantage</h3>
+        <p><b>Torque (Nm)</b> is a measure of the force that can cause an object to rotate about an axis. It's critical in engine design and gear system analysis. Converting between Newton-meters and other units ensures compatibility with international machinery standards.</p>
+        
+        <p>Our <b>Unit Converter Pro</b> is optimized for mobile and desktop, helping engineers calculate values for Theory of Machines, Thermodynamics, and Strength of Materials projects without manual errors.</p>
+    </div>
+</div>
+
+<script>
+    function convert() {
+        const val = parseFloat(document.getElementById('valInput').value);
+        const f = document.getElementById('from').value;
+        const t = document.getElementById('to').value;
+        const box = document.getElementById('resBox');
+        const out = document.getElementById('resVal');
+
+        if (isNaN(val)) { box.style.display = 'none'; return; }
+
+        let base = 0;
+        if(f === 'bar') base = val * 100000;
+        else if(f === 'psi') base = val * 6894.76;
+        else if(f === 'pascal') base = val;
+        else if(f === 'nm') base = val;
+
+        let res = 0;
+        if(t === 'pascal') res = base;
+        else if(t === 'bar') res = base / 100000;
+        else if(t === 'psi') res = base / 6894.76;
+        else if(t === 'nm') res = base;
+
+        out.innerHTML = res.toFixed(4) + " " + t.toUpperCase();
+        box.style.display = 'block';
+    }
+</script>
 </body>
 </html>
