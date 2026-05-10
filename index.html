@@ -1,0 +1,257 @@
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --bg-color: #f8fafc;
+        --text-dark: #1e293b;
+        --card-bg: #ffffff;
+    }
+
+    .tool-wrapper {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background: var(--bg-color);
+        padding: 40px 20px;
+        color: var(--text-dark);
+    }
+
+    .tool-card {
+        background: var(--card-bg);
+        max-width: 700px;
+        margin: 0 auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+    }
+
+    .tool-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 30px;
+        text-align: center;
+        color: white;
+    }
+
+    .tool-header h1 {
+      <div style="text-align:center; margin-bottom:20px;">
+    <a href="index.html" style="margin-right:15px; color:#2563eb; font-weight:bold;">Unit Converter</a> | 
+    <a href="gear-ratio.html" style="margin-left:15px; color:#2563eb; font-weight:bold;">Gear Ratio Calc</a>
+</div>
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .tool-header p {
+        margin: 10px 0 0;
+        opacity: 0.9;
+        font-size: 15px;
+    }
+
+    .tool-body {
+        padding: 40px;
+    }
+
+    .input-group {
+        margin-bottom: 25px;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #64748b;
+        text-transform: uppercase;
+    }
+
+    .tool-input, .tool-select {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #f1f5f9;
+        border-radius: 12px;
+        font-size: 16px;
+        background: #f8fafc;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .tool-input:focus, .tool-select:focus {
+        border-color: var(--primary-color);
+        background: white;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .result-section {
+        margin-top: 30px;
+        padding: 25px;
+        background: #eff6ff;
+        border-radius: 15px;
+        text-align: center;
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-section h3 {
+        margin: 0;
+        font-size: 14px;
+        color: var(--primary-color);
+        text-transform: uppercase;
+    }
+
+    .result-value {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--secondary-color);
+        margin-top: 10px;
+        display: block;
+    }
+
+    /* SEO CONTENT STYLING */
+    .article-container {
+        max-width: 800px;
+        margin: 50px auto;
+        line-height: 1.8;
+        font-size: 17px;
+        color: #334155;
+    }
+
+    .article-container h2 {
+        color: #0f172a;
+        font-size: 24px;
+        margin-top: 40px;
+        border-left: 5px solid var(--primary-color);
+        padding-left: 15px;
+    }
+
+    .article-container h3 {
+        color: #1e293b;
+        margin-top: 30px;
+    }
+
+    .ad-placeholder {
+        background: #f1f5f9;
+        border: 2px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin: 30px 0;
+        color: #94a3b8;
+    }
+</style>
+
+<div class="tool-wrapper">
+    <div class="tool-card">
+        <div class="tool-header">
+            <h1>Mechanical Unit Converter Pro</h1>
+            <p>High-Precision Torque & Pressure Calculator</p>
+        </div>
+        
+        <div class="tool-body">
+            <div class="ad-placeholder">Ad Space (Top Banner)</div>
+
+            <div class="input-group">
+                <label>Enter Numeric Value</label>
+                <input type="number" id="mainInput" class="tool-input" placeholder="e.g., 101.325" oninput="calculate()">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="input-group">
+                    <label>From Unit</label>
+                    <select id="fromUnit" class="tool-select" onchange="calculate()">
+                        <option value="bar">Bar (Pressure)</option>
+                        <option value="psi">PSI (Pressure)</option>
+                        <option value="pascal">Pascal (Pa)</option>
+                        <option value="nm">Newton-Meter (Torque)</option>
+                        <option value="kgfm">kgf-m (Torque)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>To Unit</label>
+                    <select id="toUnit" class="tool-select" onchange="calculate()">
+                        <option value="pascal">Pascal (Pa)</option>
+                        <option value="bar">Bar</option>
+                        <option value="psi">PSI</option>
+                        <option value="nm">Nm (Torque)</option>
+                        <option value="kgfm">kgf-m (Torque)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="resultBox" class="result-section">
+                <h3>Converted Result</h3>
+                <span id="resultVal" class="result-value">0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <article class="article-container">
+        <h2>The Importance of Precise Unit Conversion in Mechanical Engineering</h2>
+        <p>In the world of mechanical engineering, units are not just labels; they are the foundation of safety and functionality. A small miscalculation in <b>Pressure</b> or <b>Torque</b> units can lead to catastrophic mechanical failures, especially in high-precision fields like aerospace, automotive design, and hydraulics.</p>
+        
+        <div class="ad-placeholder">Ad Space (Native Ad)</div>
+
+        <p>Our <b>Mechanical Unit Converter Pro</b> is designed to bridge the gap between different international standards. While the SI system is globally recognized, many industries still rely on Imperial units like PSI (Pounds per Square Inch) or historical units like kgf-m (Kilogram-force meter).</p>
+
+        <h3>Understanding Pressure Units: Pascal vs. Bar vs. PSI</h3>
+        <p>Pressure is defined as force per unit area. In the International System of Units (SI), the <b>Pascal (Pa)</b> is the standard. However, because one Pascal is a very small amount of pressure, engineers often use <b>Bar</b> (100,000 Pa) for industrial applications.</p>
+        <ul>
+            <li><b>Pascal (Pa):</b> The base SI unit. Used in fluid mechanics and structural analysis.</li>
+            <li><b>Bar:</b> Common in weather forecasting and automotive tire pressure.</li>
+            <li><b>PSI:</b> Predominantly used in the United States for hydraulic systems and air compressors.</li>
+        </ul>
+
+        <h3>Torque Calculations: Nm and kgf-m</h3>
+        <p>Torque is the rotational equivalent of linear force. For mechanical engineers designing gearboxes or engines, <b>Newton-meter (Nm)</b> is the primary unit. However, older machinery manuals often use <b>kgf-m</b>. Our tool ensures that your torque specifications meet the required standards without manual error.</p>
+
+        <div class="ad-placeholder">Ad Space (Banner)</div>
+
+        <h3>How to Use This Tool Effectively</h3>
+        <p>Using our converter is straightforward. Enter the numerical value you wish to convert, select the source unit from the 'From' dropdown, and choose your target unit from the 'To' dropdown. The result is calculated instantly using high-precision conversion constants. This tool is mobile-responsive, making it ideal for students to use during lab sessions or for professionals on the factory floor.</p>
+
+        <h3>Why Engineers Trust Our Tool?</h3>
+        <p>Unlike generic converters, our tool focuses on <b>Mechanical Engineering specifics</b>. We use standard constants: 1 Bar = 100,000 Pa, and 1 kgf-m = 9.80665 Nm. These are the values expected in university exams and professional certifications.</p>
+    </article>
+</div>
+
+<script>
+    function calculate() {
+        const val = parseFloat(document.getElementById('mainInput').value);
+        const from = document.getElementById('fromUnit').value;
+        const to = document.getElementById('toUnit').value;
+        const resBox = document.getElementById('resultBox');
+        const resVal = document.getElementById('resultVal');
+
+        if (isNaN(val)) {
+            resBox.style.display = 'none';
+            return;
+        }
+
+        // Standard Factors to Base (Pascal for Pressure, Nm for Torque)
+        let baseValue = 0;
+        
+        // Convert to Base
+        if (from === 'pascal') baseValue = val;
+        else if (from === 'bar') baseValue = val * 100000;
+        else if (from === 'psi') baseValue = val * 6894.757;
+        else if (from === 'nm') baseValue = val;
+        else if (from === 'kgfm') baseValue = val * 9.80665;
+
+        // Convert from Base to Target
+        let finalValue = 0;
+        if (to === 'pascal') finalValue = baseValue;
+        else if (to === 'bar') finalValue = baseValue / 100000;
+        else if (to === 'psi') finalValue = baseValue / 6894.757;
+        else if (to === 'nm') finalValue = baseValue;
+        else if (to === 'kgfm') finalValue = baseValue / 9.80665;
+
+        resVal.innerHTML = finalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 4}) + " " + to.toUpperCase();
+        resBox.style.display = 'block';
+    }
+</script>
