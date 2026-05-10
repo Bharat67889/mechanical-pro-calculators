@@ -3,54 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gear Ratio Calculator</title>
+    <title>Gear Ratio Calculator - Mechanical Advantage</title>
     <style>
-        :root { --gear-primary: #f59e0b; --gear-secondary: #d97706; --bg-slate: #f1f5f9; }
-        .tool-wrapper { font-family: 'Segoe UI', sans-serif; background: var(--bg-slate); padding: 40px 20px; min-height: 100vh; }
+        :root { 
+            --gear-primary: #f59e0b; 
+            --gear-secondary: #d97706; 
+            --nav-blue: #2563eb;
+            --bg-slate: #f1f5f9; 
+        }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-slate); }
+        
+        /* Navigation Bar */
+        .nav-bar { background: #fff; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-bar a { text-decoration: none; color: var(--nav-blue); font-weight: bold; margin: 0 15px; padding: 5px 10px; border-radius: 5px; }
+        .nav-bar a.active { background: var(--nav-blue); color: white; }
+
+        .tool-wrapper { padding: 40px 20px; }
         .tool-card { background: #ffffff; max-width: 650px; margin: 0 auto; border-radius: 24px; box-shadow: 0 20px 25px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e2e8f0; }
         .tool-header { background: linear-gradient(135deg, var(--gear-primary), var(--gear-secondary)); padding: 30px; text-align: center; color: white; }
-        .tool-nav { text-align: center; margin-bottom: 20px; font-weight: bold; }
-        .tool-nav a { color: white; text-decoration: none; margin: 0 10px; opacity: 0.8; }
-        .tool-nav a.active { opacity: 1; border-bottom: 2px solid white; }
+        .tool-header h1 { margin: 0; font-size: 26px; font-weight: 800; }
+        
         .tool-body { padding: 40px; }
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .gear-input { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; }
-        .calc-btn { width: 100%; padding: 15px; background: var(--gear-secondary); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
-        .gear-result { margin-top: 25px; padding: 20px; background: #fffbeb; border-radius: 15px; display: none; text-align: center; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #475569; font-size: 14px; }
+        .gear-input { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
+        .gear-input:focus { border-color: var(--gear-primary); outline: none; background: #fffcf0; }
+        
+        .calc-btn { width: 100%; padding: 15px; background: var(--gear-secondary); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 18px; transition: 0.3s; }
+        .calc-btn:hover { background: var(--gear-primary); transform: translateY(-2px); }
+        
+        .gear-result { margin-top: 25px; padding: 20px; background: #fffbeb; border-radius: 15px; display: none; text-align: center; border: 1px solid #fde68a; }
+        
+        /* SEO Article Content */
+        .article-container { max-width: 800px; margin: 50px auto; line-height: 1.8; color: #334155; padding: 0 20px; }
+        .article-container h2 { color: #1e293b; border-left: 5px solid var(--gear-primary); padding-left: 15px; }
+    </article>
     </style>
 </head>
 <body>
+
+    <div class="nav-bar">
+        <a href="index.html">Unit Converter</a>
+        <a href="gear-ratio.html" class="active">Gear Ratio Calc</a>
+    </div>
+
     <div class="tool-wrapper">
         <div class="tool-card">
             <div class="tool-header">
-                <div class="tool-nav">
-                    <a href="index.html">Unit Converter</a> | 
-                    <a href="gear-ratio.html" class="active">Gear Ratio</a>
-                </div>
                 <h1>Gear Ratio Calculator</h1>
-                <p>Mechanical Advantage & Speed</p>
+                <p>Mechanical Advantage & Output Speed</p>
             </div>
             <div class="tool-body">
                 <div class="input-row">
-                    <div><label>Driver Teeth (T1)</label><input type="number" id="t1" class="gear-input"></div>
-                    <div><label>Driven Teeth (T2)</label><input type="number" id="t2" class="gear-input"></div>
+                    <div>
+                        <label>Driver Teeth (T1)</label>
+                        <input type="number" id="t1" class="gear-input" placeholder="e.g. 20">
+                    </div>
+                    <div>
+                        <label>Driven Teeth (T2)</label>
+                        <input type="number" id="t2" class="gear-input" placeholder="e.g. 40">
+                    </div>
                 </div>
-                <button class="calc-btn" onclick="calculateGear()">Calculate Now</button>
+                <button class="calc-btn" onclick="calculateGear()">Calculate Ratio</button>
+                
                 <div id="gearResult" class="gear-result">
-                    <span style="color:#b45309; font-weight:bold;">Ratio: </span>
-                    <span id="ratioVal" style="font-size:24px; font-weight:bold;"></span>
+                    <span style="color:#b45309; font-size: 14px; text-transform: uppercase; font-weight:bold;">Calculated Ratio</span>
+                    <span id="ratioVal" style="font-size:32px; font-weight:800; color: #92400e; display: block; margin-top: 5px;"></span>
                 </div>
             </div>
         </div>
+
+        <div class="article-container">
+            <h2>Understanding Gear Ratios in Mechanical Engineering</h2>
+            <p>A gear ratio is the ratio of the number of rotations of a driver gear to the rotations of a driven gear. It is one of the most fundamental concepts in <b>Theory of Machines</b> and mechanical design. Using our Gear Ratio Calculator, students can quickly find the mechanical advantage provided by different gear sets.</p>
+            
+            <h3>The Simple Formula</h3>
+            <p>To find the gear ratio, you simply divide the number of teeth on the driven gear (T2) by the number of teeth on the driver gear (T1). For example, if you have a 40-tooth driven gear and a 20-tooth driver gear, the ratio is 2:1.</p>
+            
+            <h3>Why Is It Important?</h3>
+            <p>Engineers use gear ratios to control speed and torque. A higher ratio increases torque but decreases speed, which is essential in heavy machinery and automotive transmissions. This tool helps in designing gearboxes, bicycles, and even robotic arms.</p>
+        </div>
     </div>
+
     <script>
         function calculateGear() {
             const t1 = parseFloat(document.getElementById('t1').value);
             const t2 = parseFloat(document.getElementById('t2').value);
-            if (isNaN(t1) || isNaN(t2)) return;
+            const resBox = document.getElementById('gearResult');
+            const ratioVal = document.getElementById('ratioVal');
+
+            if (isNaN(t1) || isNaN(t2) || t1 <= 0 || t2 <= 0) {
+                alert("Please enter valid positive numbers for teeth.");
+                return;
+            }
+
             const ratio = t2 / t1;
-            document.getElementById('ratioVal').innerHTML = ratio.toFixed(2) + " : 1";
-            document.getElementById('gearResult').style.display = 'block';
+            ratioVal.innerHTML = ratio.toFixed(2) + " : 1";
+            resBox.style.display = 'block';
         }
     </script>
 </body>
